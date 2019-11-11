@@ -14,8 +14,8 @@
 
 function(bin2hex target)
     find_program(MICROCHIP_BIN2HEX
-        NAMES ${_CMAKE_TOOLCHAIN_PREFIX}bin2hex bin2hex
-        HINTS ${_CMAKE_TOOLCHAIN_LOCATION}
+        NAMES "${CMAKE_BIN2HEX}" "${_CMAKE_TOOLCHAIN_PREFIX}bin2hex" bin2hex
+        HINTS "${_CMAKE_TOOLCHAIN_LOCATION}"
     )
 
     if(NOT MICROCHIP_BIN2HEX)
@@ -45,6 +45,11 @@ function(bin2hex target)
     )
 
     get_filename_component(out_f ${in_f} NAME_WE)
+
+    if ("${in_f}" STREQUAL "${out_f}")
+        set(in_f "${in_f}${CMAKE_EXECUTABLE_SUFFIX_C}")
+    endif ()
+
     set(out_f "${out_f}.hex")
 
     add_custom_command(
