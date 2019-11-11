@@ -40,9 +40,11 @@ function(MICROCHIP_PATH_SEARCH outvar target)
         CACHE STRING "the search path for Microchip tool installations"
     )
 
-    if(CMAKE_HOST_SYSTEM MATCHES "Linux")
+    if(CMAKE_HOST_SYSTEM_NAME MATCHES "Linux")
         list(APPEND MICROCHIP_SEARCH_PATH /opt/microchip)
-    elseif(CMAKE_HOST_SYSTEM MATCHES "Windows")
+    elseif(CMAKE_HOST_SYSTEM_NAME MATCHES "Darwin")
+        list(APPEND MICROCHIP_SEARCH_PATH /Applications/microchip)
+    elseif(CMAKE_HOST_SYSTEM_NAME MATCHES "Windows")
         list(APPEND MICROCHIP_SEARCH_PATH
             "C:/Program Files/Microchip"
             "C:/Program Files (x86)/Microchip"
